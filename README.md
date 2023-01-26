@@ -6,7 +6,7 @@
 wget https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/6.2.1/openapi-generator-cli-6.2.1.jar -O openapi-generator-cli.jar
 brew install maven
 mvn package -DskipTests=true
-java -cp target/java-play-multi-openapi-generator-1.0.0.jar:openapi-generator-cli.jar org.openapitools.codegen.OpenAPIGenerator generate -g java-play-multi -i ../openapi-sample/openapi.yaml -o out
+java -cp target/java-play-sub-project-openapi-generator-1.0.0.jar:openapi-generator-cli.jar org.openapitools.codegen.OpenAPIGenerator generate -g java-play-sub-project -i ../openapi-sample/openapi/admin/openapi.yaml -o out
 ```
 
 ## Overview

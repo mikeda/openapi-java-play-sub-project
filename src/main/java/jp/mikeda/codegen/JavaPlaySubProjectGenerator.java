@@ -72,7 +72,7 @@ public class JavaPlaySubProjectGenerator extends AbstractJavaCodegen implements 
 
         outputFolder = "generated-code/javaPlayFramework";
         apiTestTemplateFiles.clear();
-        embeddedTemplateDir = templateDir = "openapi-java-play-sub-project";
+        embeddedTemplateDir = templateDir = "java-play-sub-project";
         apiPackage = "controllers";
         modelPackage = "apimodels";
         invokerPackage = "org.openapitools.api";
@@ -114,7 +114,7 @@ public class JavaPlaySubProjectGenerator extends AbstractJavaCodegen implements 
 
     @Override
     public String getName() {
-        return "java-play-framework";
+        return "java-play-sub-project";
     }
 
     @Override
