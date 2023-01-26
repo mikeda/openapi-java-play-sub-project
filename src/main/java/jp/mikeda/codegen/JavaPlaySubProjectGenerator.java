@@ -15,11 +15,12 @@
  * limitations under the License.
  */
 
-package org.openapitools.codegen.languages;
+package jp.mikeda.codegen;
 
 import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.openapitools.codegen.*;
+import org.openapitools.codegen.languages.AbstractJavaCodegen;
 import org.openapitools.codegen.languages.features.BeanValidationFeatures;
 import org.openapitools.codegen.meta.features.DocumentationFeature;
 import org.openapitools.codegen.model.ModelMap;
@@ -37,8 +38,8 @@ import java.util.stream.Collectors;
 import static org.openapitools.codegen.utils.CamelizeOption.LOWERCASE_FIRST_LETTER;
 import static org.openapitools.codegen.utils.StringUtils.camelize;
 
-public class JavaPlayFrameworkCodegen extends AbstractJavaCodegen implements BeanValidationFeatures {
-    private final Logger LOGGER = LoggerFactory.getLogger(JavaPlayFrameworkCodegen.class);
+public class JavaPlaySubProjectGenerator extends AbstractJavaCodegen implements BeanValidationFeatures {
+    private final Logger LOGGER = LoggerFactory.getLogger(JavaPlaySubProjectGenerator.class);
     public static final String TITLE = "title";
     public static final String CONFIG_PACKAGE = "configPackage";
     public static final String BASE_PACKAGE = "basePackage";
@@ -64,14 +65,14 @@ public class JavaPlayFrameworkCodegen extends AbstractJavaCodegen implements Bea
     protected boolean useSwaggerUI = true;
     protected boolean supportAsync = false;
 
-    public JavaPlayFrameworkCodegen() {
+    public JavaPlaySubProjectGenerator() {
         super();
 
         modifyFeatureSet(features -> features.includeDocumentationFeatures(DocumentationFeature.Readme));
 
         outputFolder = "generated-code/javaPlayFramework";
         apiTestTemplateFiles.clear();
-        embeddedTemplateDir = templateDir = "JavaPlayFramework";
+        embeddedTemplateDir = templateDir = "openapi-java-play-sub-project";
         apiPackage = "controllers";
         modelPackage = "apimodels";
         invokerPackage = "org.openapitools.api";
@@ -464,7 +465,7 @@ public class JavaPlayFrameworkCodegen extends AbstractJavaCodegen implements Bea
             }
 
             boolean result = super.equals(o);
-            JavaPlayFrameworkCodegen.ExtendedCodegenSecurity that = (JavaPlayFrameworkCodegen.ExtendedCodegenSecurity) o;
+            JavaPlaySubProjectGenerator.ExtendedCodegenSecurity that = (JavaPlaySubProjectGenerator.ExtendedCodegenSecurity) o;
             return result &&
                     Objects.equals(jwksUrl, that.jwksUrl) &&
                     Objects.equals(tokenIntrospectUrl, that.tokenIntrospectUrl);

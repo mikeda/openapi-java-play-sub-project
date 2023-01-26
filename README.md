@@ -1,5 +1,14 @@
 # OpenAPI Generator for the java-play-sub-project library
 
+## 手順メモ
+
+```
+wget https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/6.2.1/openapi-generator-cli-6.2.1.jar -O openapi-generator-cli.jar
+brew install maven
+mvn package -DskipTests=true
+java -cp target/java-play-multi-openapi-generator-1.0.0.jar:openapi-generator-cli.jar org.openapitools.codegen.OpenAPIGenerator generate -g java-play-multi -i ../openapi-sample/openapi.yaml -o out
+```
+
 ## Overview
 This is a boiler-plate project to generate your own project derived from an OpenAPI specification.
 Its goal is to get you started with the basic plumbing so you can put in your own logic.
