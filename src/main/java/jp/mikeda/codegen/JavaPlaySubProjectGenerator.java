@@ -17,6 +17,7 @@
 
 package jp.mikeda.codegen;
 
+import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.openapitools.codegen.*;
@@ -64,6 +65,8 @@ public class JavaPlaySubProjectGenerator extends AbstractJavaCodegen implements 
     protected boolean wrapCalls = true;
     protected boolean useSwaggerUI = true;
     protected boolean supportAsync = false;
+
+    protected String subProjectName = "0000000";
 
     public JavaPlaySubProjectGenerator() {
         super();
@@ -199,7 +202,7 @@ public class JavaPlaySubProjectGenerator extends AbstractJavaCodegen implements 
         //Conf folder
         supportingFiles.add(new SupportingFile("logback.mustache", "conf", "logback.xml"));
         supportingFiles.add(new SupportingFile("application.mustache", "conf", "application.conf"));
-        supportingFiles.add(new SupportingFile("routes.mustache", "conf", "routes"));
+        // supportingFiles.add(new SupportingFile("routes.mustache", "conf", subProjectName + ".routes"));
 
         //App/Utils folder
         if (!this.controllerOnly && this.useInterfaces) {
@@ -379,6 +382,22 @@ public class JavaPlaySubProjectGenerator extends AbstractJavaCodegen implements 
         CliOption defaultOption = CliOption.newBoolean(optionName, description);
         defaultOption.setDefault(Boolean.toString(defaultValue));
         return defaultOption;
+    }
+
+    @Override
+    public void preprocessOpenAPI(OpenAPI openAPI) {
+        Map<String, Object> vendorExt = openAPI.getExtensions();
+
+        if (vendorExt == null || !vendorExt.containsKey("x-project-name")) {
+            throw new RuntimeException("x-project-nameを指定して下さい。");
+        }
+
+        String subProjectName = (String) vendorExt.get("x-project-name");
+        this.subProjectName = subProjectName;
+        System.out.println("subProjectName: " + subProjectName);
+
+        supportingFiles.add(new SupportingFile("routes.mustache", "conf", subProjectName + ".routes"));
+        super.preprocessOpenAPI(openAPI);
     }
 
     @Override
